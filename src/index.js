@@ -1,5 +1,5 @@
 import './css/styles.css';
-import fetchCountries from './js/fetchCountries';
+import { fetchCountries } from './js/fetchCountries';
 import debounce from 'lodash.debounce';
 import { Notify } from 'notiflix';
 
@@ -24,20 +24,11 @@ function searchCountries(e) {
   }
   refs.countriesList.innerHTML = '';
   refs.infoAboutCountries.innerHTML = '';
-  refs.searchInput.removeEventListener('input', e);
-  return;
-  // fetchCountries(inputValue)
-  //   .then(renderCountryList)
-  //   .catch(err => {
-  //     Notify.failure('Oops, there is no country with that name');
-  //     refs.countriesList.innerHTML = '';
-  //     refs.infoAboutCountries.innerHTML = '';
-  //   });
+  fetchCountries(inputValue).then(renderCountryList).catch(onFetchError);
 }
 
-fetchCountries(inputValue).then(renderCountryList).catch(onFetchError);
-
 function renderCountryList(countries) {
+  const numberCountriesFound = countries.length;
   const markupCountriesList = countries
     .map(
       ({ name, flags }) =>
@@ -46,12 +37,24 @@ function renderCountryList(countries) {
     .join('');
   refs.countriesList.innerHTML = markupCountriesList;
   console.log(markupCountriesList);
+
+  if (numberCountriesFound === 1) {
+    const markupAboutCountry = countries
+      .map(
+        ({ capital, population, languages }) =>
+          `<p><b>Capital: </b>${capital}</p><p><b>Population: </b>${population}</p><p><b>Languages: </b>${Object.values(
+            languages
+          )}</p>`
+      )
+      .join('');
+    refs.infoAboutCountries.innerHTML = markupAboutCountry;
+  }
+
+  if (numberCountriesFound > 10) {
+    Notify.warning('Too many matches found. Please enter a more specific name');
+  }
 }
 
 function onFetchError(error) {
   Notify.failure('Oops, there is no country with that name');
 }
-
-// fetch('https://restcountries.com/v3.1/name/peru').then(r => {
-//   r.json();
-// });

@@ -18,3 +18,32 @@ body {
   max-width: 320px;
   margin-bottom: 16px;
 }
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+li {
+display: flex;
+align-items: center;
+gap: 15px;
+margin-bottom: 15px;
+}
+
+img {
+  display: block;
+  width: 50px;
+  height: auto;
+}
+
+h1 {
+  margin: 0;
+  padding: 0;
+}
+
+p {
+  margin-top: 10px;
+  margin-bottom: 0;
+}
