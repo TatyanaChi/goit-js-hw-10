@@ -20,10 +20,11 @@ function searchCountries(e) {
   const inputValue = e.target.value.trim();
   console.log(inputValue);
   if (inputValue === '') {
-    return;
+    refs.countriesList.innerHTML = '';
+    refs.infoAboutCountries.innerHTML = '';
   }
-  refs.countriesList.innerHTML = '';
-  refs.infoAboutCountries.innerHTML = '';
+  // refs.countriesList.innerHTML = '';
+  // refs.infoAboutCountries.innerHTML = '';
   fetchCountries(inputValue).then(renderCountryList).catch(onFetchError);
 }
 
