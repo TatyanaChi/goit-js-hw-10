@@ -23,8 +23,8 @@ function searchCountries(e) {
     refs.countriesList.innerHTML = '';
     refs.infoAboutCountries.innerHTML = '';
   }
-  // refs.countriesList.innerHTML = '';
-  // refs.infoAboutCountries.innerHTML = '';
+  refs.countriesList.innerHTML = '';
+  refs.infoAboutCountries.innerHTML = '';
   fetchCountries(inputValue).then(renderCountryList).catch(onFetchError);
 }
 
